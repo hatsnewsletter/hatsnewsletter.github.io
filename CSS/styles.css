@@ -64,13 +64,30 @@ body {
     color: #e0e0e0;
 }
 
+
+/* Media Query for Mobile Devices */
 @media only screen and (max-width: 600px) {
-    .container {
+    /*.container {
         margin: 10px;
         padding: 5px;
+    }*/
+
+    .container {
+        max-width: 750px;
+        margin: 10px auto;
+        padding: 10px;
+    }
+    .article {
+        margin: 15px 5px;
     }
 
-    .article {
-        margin: 10px 5px;
+    .title {
+        font-size: 20px; /* Reduced font size for title */
+        padding: 20px 20px 10px 20px;
+    }
+
+    .summary {
+        font-size: 13px; /* Reduced font size for summary */
+        padding: 1px 20px 20px 20px;
     }
 }
