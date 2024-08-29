@@ -1,1 +1,0 @@
-https://realfavicongenerator.net/favicon_result?file_id=p1h6u289ib1uqk7141sua1f1rher6

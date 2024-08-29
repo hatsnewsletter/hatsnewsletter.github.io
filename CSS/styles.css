@@ -1,3 +1,47 @@
+/* Header Styling Things */
+body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+}
+.header {
+      background-color: #3CBAC8;
+      padding: 10px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: none;
+}
+.header .logo {
+      display: flex;
+      align-items: center;
+      margin-left: 20px;
+}
+.header .logo img {
+      height: 65px;
+      margin-right: 10px;
+}
+.header .logo span {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+}
+.header nav {
+      margin-right: 20px;
+}
+.header nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      font-size: 16px;
+      color: #333;
+      font-family: "Poppins", sans-serif;
+      font-weight: 500;
+      font-style: normal;
+}
+.header nav a:hover {
+      color: #000;
+}
+
+/*General styling things*/
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -7,7 +51,7 @@ body {
 
 .container {
     max-width: 750px;
-    margin: 20px auto;
+    margin: 10px auto;
     padding: 10px;
 }
 
@@ -15,7 +59,7 @@ body {
             display: flex;
             flex-direction: column;
             border: 4px solid #0f0f0f;
-            margin: 20px;
+            margin: 15px 5px;
             border-radius: 20px;
             overflow: hidden;
             background-color: #0f0f0f;
@@ -45,49 +89,148 @@ body {
 }
 
 .title {
-    font-size: 30px;
+    font-size: 20px; /* Reduced font size for title */
     margin: 0;
-    padding: 30px 30px 10px 30px;
+    padding: 20px 20px 10px 20px;
     font-family: 'Ubuntu', sans-serif;
     border-bottom: 1px solid #000; /* Boundary between title and summary */
     border-color: #0f0f0f;
     color: #e0e0e0;
+    
 }
 
 .summary {
-    font-size: 16px;
+    font-size: 14px; /* Reduced font size for summary from 16 to 13 */
     color: #555;
     margin: 0;
-    padding: 5px 30px 30px 30px;
+    padding: 1px 20px 20px 20px;
     /*text-align: left;*/ /* Align text to the left */
     text-align: justify; /* Justify text */
     color: #e0e0e0;
 }
 
+/* Footer Styling Things */
 
-/* Media Query for Mobile Devices */
-@media only screen and (max-width: 600px) {
-    /*.container {
-        margin: 10px;
-        padding: 5px;
-    }*/
-
-    .container {
-        max-width: 750px;
-        margin: 10px auto;
-        padding: 10px;
-    }
-    .article {
-        margin: 15px 5px;
-    }
-
-    .title {
-        font-size: 20px; /* Reduced font size for title */
-        padding: 20px 20px 10px 20px;
-    }
-
-    .summary {
-        font-size: 13px; /* Reduced font size for summary */
-        padding: 1px 20px 20px 20px;
-    }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
 }
+.footer {
+    background-color: #212120;
+    color: #fff;
+}
+.newsletter-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+    font-size: 20px;
+    text-decoration: none;
+    color: #212120;
+    font-weight: bold;
+    background-color: #3CBAC8;
+    width: 100%;
+}
+
+.newsletter-button:hover {
+    background-color: #62d7e4;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}     
+.newsletter-button img {
+    margin-right: 10px;
+    height: 20px;
+
+}
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.footer-content .menu {
+    flex-grow: 1;
+    justify-content: center;
+    padding-left: 35px; /* Push the elements to the right from center as coudln't figure out why they weren't centered*/
+    align-items: center;
+    display: flex;
+}
+.footer-content .menu a {
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #3CBAC8;
+    font-weight: bold;
+    border: 2px solid #3CBAC8;
+    margin: 0 5px;
+}
+.footer-content .menu a:hover {
+    background-color: #000;
+    color: #62d7e4;
+}
+.footer-content .logo img {
+    height: 80px;
+}
+.footer-content .copyright {
+    text-align: right;
+    font-size: 14px;
+    color: #3CBAC8;
+}
+.footer-content .copyright p {
+    margin: 0;
+}
+
+/*responsiveness things*/
+
+@media only screen and (max-width: 400px) {
+  /*header things*/  
+  .header {
+        background-color: #3CBAC8;
+        padding: 10px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: none;
+  }
+  .header .logo {
+        display: flex;
+        align-items: center;
+        margin-left: 20px;
+  }
+  .header .logo img {
+        height: 65px;
+        margin-right: 10px;
+  }
+  .header .logo span {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+  }
+  .header nav {
+        margin-right: 20px;
+        display: none;
+  }
+  .header nav a {
+        margin: 0 15px;
+        text-decoration: none;
+        font-size: 16px;
+        color: #333;
+        font-family: "Poppins", sans-serif;
+        font-weight: 500;
+        font-style: normal;
+  }
+  .header nav a:hover {
+        color: #000;
+  }
+  /* footer things*/
+  .footer-content .copyright p {
+    font-size: 13px;
+  }
+}
+
+@media only screen and (max-width: 1100px) {
+    /* footer things*/
+    .footer-content .menu a {
+  
+      display: none;
+    }
+  }
