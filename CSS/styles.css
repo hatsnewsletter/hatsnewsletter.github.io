@@ -79,6 +79,8 @@ body {
     background-size: cover;
     background-position: center;
     /* border-bottom: 1px solid #000;  Boundary between thumbnail and content */
+    max-height: calc(40vh); /* Limit height to half of viewport height */
+    object-fit: cover;
 }
 
 .title,
