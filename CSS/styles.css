@@ -183,7 +183,7 @@ body {
 
 /*responsiveness things*/
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 410px) {
   /*header things*/  
   .header {
         background-color: #3CBAC8;
@@ -209,12 +209,11 @@ body {
   }
   .header nav {
         margin-right: 20px;
-        display: none;
   }
   .header nav a {
-        margin: 0 15px;
+        margin: 0 5px;
         text-decoration: none;
-        font-size: 16px;
+        font-size: 14px;
         color: #333;
         font-family: "Poppins", sans-serif;
         font-weight: 500;
