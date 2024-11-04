@@ -1,12 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+<html prefix="og: https://ogp.me/ns#">  <!-- for being able to  define the namespace for Open Graph protocol properties  -->
+
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <link href="CSS/styles.css" rel="stylesheet"/>
-  <title>
-   Hats Newsletter
-  </title>
+  <!-- Title and Open Graph protocol things -->
+  <title>Hats Newsletter</title>
+
+    <!-- Basic Open Graph Metadata -->
+    <meta property="og:title" content="Hats Newsletter Feed" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://hatsnewsletter.github.io/" />
+    <meta property="og:image" content="https://hatsnewsletter.github.io/image/icon/hatsnewsletter_logo_darkgray.svg" />
+    <meta property="og:description" content="We’re three friends sharing weekly discoveries in robotics, electronics, design, and more. Join us for an up to date digest of the web and tell a friend who’d enjoy it too!" />
+
+    <!-- Optional Open Graph Metadata -->
+    <meta property="og:site_name" content="Hats Newsletter" />
+    <meta property="og:locale" content="en_US" />
+
+    <!--Could be added down the line
+
+    <meta property="og:type" content="article" />
+    <meta property="article:published_time" content="2024-11-04T10:30:00Z" />  ISO 8601 date format
+    <meta property="article:modified_time" content="2024-11-04T12:00:00Z" />
+    <meta property="article:expiration_time" content="2024-12-01T23:59:59Z" />
+    <meta property="article:author" content="https://yourwebsite.com/author-profile" />
+    <meta property="article:section" content="News" />  High-level section, e.g., Technology, Health, etc. 
+    <meta property="article:tag" content="Newsletter" />  Tags relevant to the article's content 
+    <meta property="article:tag" content="Hats" />  Additional tags for topics or keywords
+    -->
+
+
   <link href="https://fonts.googleapis.com" rel="preconnect"/>
   <!-- Favicon stuff -->
   <link href="image\favicon/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
