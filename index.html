@@ -77,11 +77,25 @@
 		 div.classList.add("article");
 		 div.id=data.id;
 
-		 var img=document.createElement("img");
-		 img.alt="Thumbnail";
-		 img.classList.add("thumbnail");
-		 img.src=data.imgurl;
-
+		 if (data.imgurl) {
+			 var img=document.createElement("img");
+			 img.alt="Thumbnail";
+			 img.classList.add("thumbnail");
+			 img.src=data.imgurl;
+		 } else {
+			 var img=document.createElement("video");
+			 img.autoplay="autoplay";
+			 img.classList.add("thumbnail");
+			 img.loop="loop";
+			 img.muted="muted";
+			 var src=document.createElement("source");
+			 src.src=data.vidurl;
+			 src.type="video/mp4";
+			 var vidtext=document.createTextNode("Your browser does not support the video tag.");
+			 img.appendChild(src);
+			 img.appendChild(vidtext);
+		 };
+		 
 		 var h3=document.createElement("h3");
 		 h3.classList.add("title");
 		 var titletext=document.createTextNode(data.title);
@@ -317,7 +331,7 @@
 			 {
 				 "url": "https://transistor-man.com/gyroscopic_gyros.html",
 				 "id": "92",
-				 "imgurl": "",
+				 "vidurl": "https://hatsnewsletter.github.io/image/cover_images/92.mp4",
 				 "title": "Gyroscopic Gyros",
 				 "summary": "Dane Kouttron creates culinary history by figuring out how to rotate meat not in one, but three axes. Great build log with a bunch of videos."
 			 },
@@ -583,7 +597,7 @@
 			 {
 				 "url": "https://www.kickstarter.com/projects/daistes/swapmod-automated-multi-plate-system-for-a1-mini?ref=85v6ph",
 				 "id": "63",
-				 "imgurl": "",
+				 "vidurl": "https://hatsnewsletter.github.io/image/cover_images/63.mp4",
 				 "title": "Bambu Lab A1 Mini automated with automatic plate changer kit",
 				 "summary": "Andre Bar\u2019s DIY kit Swapmod enables a Bambu Lab A1 to become almost fully automated. The printer can swap its own build plate to be able to keep printing indefinitely."
 			 },
