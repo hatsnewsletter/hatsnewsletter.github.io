@@ -669,20 +669,36 @@
              prevButton.disabled = currentPage === 1;
              nextButton.disabled = currentPage * articlesPerPage >= articles.length;
          }
-		 
-         prevButton.addEventListener("click", () => {
-             if (currentPage > 1) {
-                 currentPage--;
-                 displayPage(currentPage);
-             }
-         });
-		 
-         nextButton.addEventListener("click", () => {
+
+		 function nextPage(){
              if (currentPage * articlesPerPage < articles.length) {
                  currentPage++;
                  displayPage(currentPage);
+				 window.scrollTo(0,0);
              }
-         });
+         };
+
+		 function prevPage(){
+             if (currentPage > 1) {
+                 currentPage--;
+                 displayPage(currentPage);
+				 window.scrollTo(0,document.body.scrollHeight);
+             }
+         };
+		 
+         prevButton.addEventListener("click", prevPage);
+		 
+         nextButton.addEventListener("click", nextPage);
+
+		 function doc_keyUp(e) {
+			 if (e.code === 'ArrowLeft') {
+				 prevPage();
+			 } else if (e.code === 'ArrowRight') {
+				 nextPage();
+			 };
+		 };
+		 // register the handler 
+		 document.addEventListener('keyup', doc_keyUp, false);
 		 
          displayPage(currentPage);
      });
