@@ -887,6 +887,16 @@
      </div>
     </a>
    </div>
+
+    <!-- Pagination Controls -->
+    <div class="pagination">
+        <button id="prev-page">Previous</button>
+        <span id="page-info">Page 1</span>
+        <button id="next-page">Next</button>
+    </div>
+
+    <footer class="footer">
+
    <footer class="footer">
     <a class="newsletter-button" href="http://eepurl.com/iOYbAY">
      <img alt="Mail Icon" src="image\icon\mail_icon.svg"/>
@@ -916,6 +926,56 @@
      </div>
     </div>
    </footer>
+
+   <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const articlesContainer = document.querySelector(".container");
+        const articles = Array.from(document.querySelectorAll(".article"));
+        const prevButton = document.getElementById("prev-page");
+        const nextButton = document.getElementById("next-page");
+        const pageInfo = document.getElementById("page-info");
+    
+        const articlesPerPage = 10; // Adjust the number of articles per page
+        let currentPage = 1;
+    
+        function displayPage(page) {
+            articlesContainer.innerHTML = ""; // Clear previous articles
+            const start = (page - 1) * articlesPerPage;
+            const end = start + articlesPerPage;
+            const pageArticles = articles.slice(start, end);
+    
+            pageArticles.forEach(article => {
+                articlesContainer.appendChild(article);
+            });
+    
+            pageInfo.textContent = `Page ${page}`;
+            updateButtons();
+        }
+    
+        function updateButtons() {
+            prevButton.disabled = currentPage === 1;
+            nextButton.disabled = currentPage * articlesPerPage >= articles.length;
+        }
+    
+        prevButton.addEventListener("click", () => {
+            if (currentPage > 1) {
+                currentPage--;
+                displayPage(currentPage);
+            }
+        });
+    
+        nextButton.addEventListener("click", () => {
+            if (currentPage * articlesPerPage < articles.length) {
+                currentPage++;
+                displayPage(currentPage);
+            }
+        });
+    
+        displayPage(currentPage);
+    });
+    </script>
+    
+
   </body>
  </html>
 </html>
