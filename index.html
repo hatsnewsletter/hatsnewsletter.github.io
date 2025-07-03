@@ -65,828 +65,657 @@
      <!-- <a href="#">Support us</a> -->
     </nav>
    </header>
+
+   <script>
+	 function renderPost(data) {
+		 var a=document.createElement("a");
+		 a.href=data.url;
+		 a.style="text-decoration: none;";
+		 a.target="_blank";
+		 
+		 var div=document.createElement("div");
+		 div.classList.add("article");
+		 div.id=data.id;
+
+		 if (data.imgurl) {
+			 var img=document.createElement("img");
+			 img.alt="Thumbnail";
+			 img.classList.add("thumbnail");
+			 img.src=data.imgurl;
+		 } else {
+			 var img=document.createElement("video");
+			 img.autoplay="autoplay";
+			 img.classList.add("thumbnail");
+			 img.loop="loop";
+			 img.muted="muted";
+			 var src=document.createElement("source");
+			 src.src=data.vidurl;
+			 src.type="video/mp4";
+			 var vidtext=document.createTextNode("Your browser does not support the video tag.");
+			 img.appendChild(src);
+			 img.appendChild(vidtext);
+		 };
+		 
+		 var h3=document.createElement("h3");
+		 h3.classList.add("title");
+		 var titletext=document.createTextNode(data.title);
+		 h3.appendChild(titletext);
+
+		 var p=document.createElement("p");
+		 p.classList.add("summary");
+		 var summarytext=document.createTextNode(data.summary);
+		 p.appendChild(summarytext);
+
+		 div.appendChild(img);
+		 div.appendChild(h3);
+		 div.appendChild(p);
+
+		 a.appendChild(div);
+
+		 return a;
+	 };
+     document.addEventListener("DOMContentLoaded", function () {
+         const articlesContainer = document.querySelector(".container");
+         // const articles = Array.from(document.querySelectorAll(".article"));
+		 const articles = [
+			 {
+				 "url": "https://www.theverge.com/news/622963/byd-dji-vehicle-mounted-drone-launcher",
+				 "id": "130",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/130.png",
+				 "title": "Roof mounted drone launcher for BYD cars",
+				 "summary": "BYD, in collaboration with DJI, introduced \u201cLingyuan\u201d, a roof-mounted drone system for its EVs, available in China for $2,197. The drone can launch, follow, and return while the car is in motion, integrating AI and video editing tools."
+			 },
+			 {
+				 "url": "https://www.graz.io/articles/bayleaf-wireless-keyboard",
+				 "id": "129",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/129.png",
+				 "title": "Low-profile split keyboard build",
+				 "summary": "Sebestian Graz designs and fabricates a split-keyboard that uses ultra low profile Kailh \u00b7 PG1316S switches, an aluminum enclosure and MJF 3d printed keycaps. The result is stunning."
+			 },
+			 {
+				 "url": "https://obsidian.md/blog/free-for-work/",
+				 "id": "127",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/127.png",
+				 "title": "Obsidian is now free for work use!",
+				 "summary": "Buying a commercial license is no longer necessary to use Obsidian at work."
+			 },
+			 {
+				 "url": "https://spectrum.ieee.org/diy-muon-tomography",
+				 "id": "128",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/128.png",
+				 "title": "DIY Muon Tomography",
+				 "summary": "This article details how to build a muon detector of your very own. You can use these devices to do something akin to an x-ray scan on buildings, detecting hidden rooms and such."
+			 },
+			 {
+				 "url": "https://www.youtube.com/watch?v=rnwPmoWMGqk",
+				 "id": "126",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/126.jpg",
+				 "title": "I built my ideal mini computer - abe's projects",
+				 "summary": "Another buildlog for a PDA-like handheld computer project. The extension ports in the back allowing the user to plug in add-ons that extend the device\u2019s capabilities was the highlight for me."
+			 },
+			 {
+				 "url": "https://www.hackster.io/news/the-raspberry-pi-rp2040-gets-a-surprise-speed-boost-unlocks-an-official-200mhz-mode-d6c9d267de5a",
+				 "id": "125",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/125.png",
+				 "title": "The Raspberry Pi RP2040 can now run at 200MH",
+				 "summary": "A new update to the pico-sdk allows the Raspberry Pi RP2040 chip to run at a maximum clock speed of 200MHz instead of the stock 125MHz speed."
+			 },
+			 {
+				 "url": "https://youtu.be/sXwDrcd1t-E?si=u-ol4cXRyMJXJKTn",
+				 "id": "123",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/123.jpg",
+				 "title": "This ESP32 Antenna Array Can See WiFi - Jeija",
+				 "summary": "This ESP32 antenna array named \"ESPARGOS\" was developed by researchers at the Institute of Telecommunications at the University of Stuttgart. It uses a grid of ESP32s to locate where WiFi signals are coming from. There are some very impressive demos in the video of how WiFi signals propagate and reflect."
+			 },
+			 {
+				 "url": "https://www.iroh.computer/sendme",
+				 "id": "122",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/122.png",
+				 "title": "Sendme - Iroh",
+				 "summary": "A tool for easy file transfer with no accounts, no complications, end-to-end encrypted. Enables you to directly transfer files with the help of a single link."
+			 },
+			 {
+				 "url": "https://www.rskey.org/~mwsebastian/miscprj/forensics.htm",
+				 "id": "114",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/114.png",
+				 "title": "Calculator Forensics",
+				 "summary": "A very old webpage that explains a method to figure out the chip used inside a calculator without opening it up, exploiting the floating point implementation in the chip. The table of data is a bit outdated, I found out that a calculator model that I\u2019m using has apparently changed ICs since 2007 (shocker!)"
+			 },
+			 {
+				 "url": "https://www.byran.ee/posts/creation/",
+				 "id": "112",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/112.jpg",
+				 "title": "Building a laptop from scratch -Byran Huang",
+				 "summary": "Byran designed and built an open-source laptop project that\u2019s seriously impressive. Its chasis is inspired by MacBook and Razer laptops and is built from scratch, it features a 4K AMOLED display, a removable wireless mechanical keyboard, a CNC aluminum chassis, and an RK3588-based motherboard. He tackles PCB design, power management, and firmware development for the build."
+			 },
+			 {
+				 "url": "https://www.youtube.com/watch?v=I65oL91O_aM",
+				 "id": "96",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/96.jpg",
+				 "title": "A(bstract)typography",
+				 "summary": "Atypography, or abstract typography, is the concept of deconstructing letters into abstract shapes with intention. It creates a deliberate barrier between text and the artwork it accompanies, acting as a form of friction. This approach elevates the form of the artwork while still allowing the message to be conveyed."
+			 },
+			 {
+				 "url": "https://www.youtube.com/watch?v=ZyF75d7zDsM",
+				 "id": "121",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/121.jpg",
+				 "title": "DIY Janko Piano",
+				 "summary": "A series of videos in which Mike Filip attempts to build his own piano with a Janko layout, in which the keys are arranged such that you can play the same melody in different keys without changing your hand shape, similar to how it is on a guitar. In the videos there are some interesting discussions of how different piano key mechanisms work."
+			 },
+			 {
+				 "url": "https://timkellogg.me/blog/2025/02/03/s1",
+				 "id": "119",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/119.jpg",
+				 "title": "S1: The $6 R1 Competitor?",
+				 "summary": "A summary of the S1 paper by Tim Kellogg, which is about a small chain-of-thought language model akin to OpenAI\u2019s o1 and Deepseek R1. This is a much smaller model trained with slightly different methods compared to the big shots, but the goals are the same: to make the language model write out some of its thoughts before answering. I don\u2019t know whether to find the method they used to keep the model thinking for longer astonishing or disappointing."
+			 },
+			 {
+				 "url": "https://timsh.org/tracking-myself-down-through-in-app-ads/",
+				 "id": "120",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/120.png",
+				 "title": "Everyone knows your location: tracking myself down through in-app ads",
+				 "summary": "Tim Sh delves deep into how apps track their users and sell data by manually investigating the network packets sent out by his phone."
+			 },
+			 {
+				 "url": "https://walkkumano.com/koyabound/",
+				 "id": "118",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/118.jpg",
+				 "title": "Koya Bound",
+				 "summary": "A travel log by Craig Mod and Dan Rubin who walked for eight days along the Kumano Kodo pilgrimage route in Japan in April 2016. Besides the lovely photography, I love the map on the side that shows you where on the route the travellers are as you scroll."
+			 },
+			 {
+				 "url": "https://andrewchilds.com/posts/building-a-t1d-smartwatch-from-scratch",
+				 "id": "117",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/117.jpg",
+				 "title": "Building a (T1D) smartwatch",
+				 "summary": "Andrew Childs builds a smartwatch for his son with diabetes to display glucose readings. The challenges faced during development are documented nicely, with many issues stemming from efforts to make the watch water-resistant. Especially when considering that the author is a software developer with little prior hardware experience, it\u2019s impressive how sleek the final product looks."
+			 },
+			 {
+				 "url": "https://practicapp.com/binary-modding-a-watercooler/",
+				 "id": "116",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/116.jpg",
+				 "title": "Binary Modding a Water Dispenser",
+				 "summary": "Displeased with the user experience on a new water dispenser, Robbe Derks takes matters into his own hands. He dumps, reverse engineers and modifies the firmware to get the buttons acting the way he wants. A nice example of how the reverse engineering process for firmware works."
+			 },
+			 {
+				 "url": "https://ryanis.cool/cosmos/",
+				 "id": "115",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/115.png",
+				 "title": "Generate a keyboard from a hand scan",
+				 "summary": "This website lets you scan your hand using a camera, and then generates you a comfortable keyboard chassis based on your measurements. Then you can print the chassis on a 3D printer and add in electronics to make a custom keyboard! There are a bunch of other configuration options ranging from which board and switches you are going to use to additional stuff like encoders."
+			 },
+			 {
+				 "url": "https://mikecoats.com/vanmoof-eshifter-reverse-engineering-part-1/",
+				 "id": "113",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/113.jpg",
+				 "title": "Reverse Engineering a VanMoof e-shifter",
+				 "summary": "I had heard that VanMoofs were techy bicycles but had no idea they had automatic shifters until I saw this blog post. In this series Mike Coats details the process of reverse engineering the communication protocol used by the system. The effort is still in-progress, but the tools employed so far are quite interesting."
+			 },
+			 {
+				 "url": "https://khz.ac/sound/ribbon-mic/",
+				 "id": "111",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/111.jpg",
+				 "title": "Ribbon Mic Build",
+				 "summary": "A build-log for a ribbon microphone. The author talks about how ribbon mics work and builds one from scratch. The painstaking process of corrugating a thin sheet of metal to create the ribbon is described in detail."
+			 },
+			 {
+				 "url": "https://calbryant.uk/blog/3d-printing-giant-things-with-jigsaw-generator/",
+				 "id": "110",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/110.webp",
+				 "title": "3D printing giant things with a python jigsaw generator",
+				 "summary": "Cal Bryant creates a program that automatically splits big 3D models into smaller parts with jigsaw-like edges, so that they fit on a 3D printer and can be printed one by one. No projects printed using the method yet, but the development process is given in detail."
+			 },
+			 {
+				 "url": "https://youtu.be/wiRMdRi0LrI",
+				 "id": "109",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/109.jpg",
+				 "title": "A Unique Satellite Reaction Wheel - Breaking Taps",
+				 "summary": "Reaction wheels are heavy disks connected to motors. One use for them is to steer and orient satellites using the conservation of momentum. In this video Breaking Taps explains how a different design that circulates liquid metal around works and builds a few of his own. While this alternative seems mostly useful for spacecraft, it\u2019s possible we will see these motors in other applications."
+			 },
+			 {
+				 "url": "https://dvaluch.web.cern.ch/hh3/",
+				 "id": "108",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/108.png",
+				 "title": "The Most Accurate Pendulum Clock on the Planet",
+				 "summary": "Daniel Valuch at CERN gets his hands on a pendulum clock. He modifies it, adding in a phase locked loop to sync it to a super-precise caesium fountain clock (which they of course have), so that the old grandpa clock deviates less than a second in 158 million years. The resulting system ends up successfully correcting for vibrations from an earthquake (granted, one that\u2019s very far away)."
+			 },
+			 {
+				 "url": "https://www.hanssummers.com/homebrew/homebrewbattery.html",
+				 "id": "106",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/106.png",
+				 "title": "When Life Give You Lemons You Make Homebrew Batteries",
+				 "summary": "Hans Summers attempts to power his radio transmitter with a lemon battery. He comes up with modifications to the batteries to make lemon juice radio communication possible in the blogpost which are worth a read."
+			 },
+			 {
+				 "url": "https://rodneybrooks.com/predictions-scorecard-2025-january-01/",
+				 "id": "107",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/107.jpg",
+				 "title": "Rodney Brooks\u2019 Predictions Scorecard",
+				 "summary": "Rodney Brooks, one of the founders of iRobot (of Roomba fame) and many other robotics startups, provides an annual update on his predictions related to self-driving cars, robotics, AI and space travel. This year he focuses on the developments made in self-driving cars and addresses the advancements in generative AI. Contrary to most predictions of this sort, he has a more modest assessment of the pace of technological development."
+			 },
+			 {
+				 "url": "https://youtu.be/ZF3XPORAF0A?si=qE2uKulmmr-nG1on",
+				 "id": "102",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/102.png",
+				 "title": "One Man Plastics Factory - Exploring the Simulation",
+				 "summary": "Ken Pillonel explains and demonstrates how he is able to launch, manufacture, ship and iterate on his products by using a SLS 3D printer and a Opulo pick and place machine at his home. He has a script that enables him to manufacture on demand, straight from order to print. This enables him to correct mistakes on the run and offer alternative designs on a whim."
+			 },
+			 {
+				 "url": "https://ithy.com/",
+				 "id": "103",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/103.png",
+				 "title": "Get multiple AI\u2019s to answer your question together \u2014 ithy\u2800",
+				 "summary": "Ithy asks your questions to multiple different models and compiles their answers into one holistic and inclusive answer.  You can share the answer after it is generated as a short URL."
+			 },
+			 {
+				 "url": "https://formlabs.com/eu/blog/introducing-texture-engine/",
+				 "id": "101",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/101.png",
+				 "title": "Free online tool for adding texture to 3D Models | Formlabs",
+				 "summary": "I came across this tool from Formlabs while exploring how I could get a SLS-like rough texture on my Resin 3D printed parts. This is a cool tool that enables you to add texture to a part or the whole of your STL file before 3D printing. You have to take care to have a uniform mesh for the texture to work well. Still not over what happened to Micronics though :("
+			 },
+			 {
+				 "url": "https://www.youtube.com/watch?v=IFaAjR_RRJs",
+				 "id": "104",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/104.jpg",
+				 "title": "12,419 Days Of Strandbeest Evolution - Veritasium",
+				 "summary": "Theo Jansen conceived the idea of Strandbeests to help build dunes against rising sea levels by kicking up sand. Using genetic algorithms, he optimized their leg geometry and walking paths. For the past 30 years, he has been building, evolving and testing these mechanical creatures as if they were living animals, strolling the beach."
+			 },
+			 {
+				 "url": "https://tinycircuits.com/",
+				 "id": "100",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/100.png",
+				 "title": "TinyCircuits - Maker of Tiny, Open Source Electronic Gadgets",
+				 "summary": "TinyCircuits designs and manufactures open-source, miniature electronics. They focus on creating innovative, high-quality gadgets that are both functional and fun."
+			 },
+			 {
+				 "url": "https://transistor-man.com/gyroscopic_gyros.html",
+				 "id": "92",
+				 "vidurl": "https://hatsnewsletter.github.io/image/cover_images/92.mp4",
+				 "title": "Gyroscopic Gyros",
+				 "summary": "Dane Kouttron creates culinary history by figuring out how to rotate meat not in one, but three axes. Great build log with a bunch of videos."
+			 },
+			 {
+				 "url": "https://www.youtube.com/watch?v=DY1SuTu32fk&ab_channel=StevenBennett",
+				 "id": "98",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/98.jpg",
+				 "title": "Custom DIYson lamp made by Steven Bennett shows signs of life",
+				 "summary": "Steve Bennett has been working on small updates and solutions that make the DIYson work really well while resolving some integral issues. Things are coming together as he covers the latest improvements since the last build log in this video. All files for the up-to-date unit are available on his GitHub repo."
+			 },
+			 {
+				 "url": "https://www.vice.com/en/article/viganella-italy-fake-manmade-sun/",
+				 "id": "97",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/97.png",
+				 "title": "The Italian Town That Built Its Own Sun",
+				 "summary": "For three months every year, the Italian town of Viganella is shrouded in darkness, thanks to the surrounding mountains. In 2006, architect Giacomo Bonzani proposed a solution: a massive mirror, 8 meters wide and 5 meters tall, installed on a nearby peak. Controlled by software, the mirror reflects sunlight into the main square for 6 hours daily, bringing warmth and light. Beyond practical benefits, it fosters socialization in the town's quiet winters and since has inspired similar efforts, like the one in Rjukan Norway."
+			 },
+			 {
+				 "url": "https://youtu.be/Yrl4OmS3bBA?si=2kkJsV7AAqeGZIs9",
+				 "id": "95",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/95.png",
+				 "title": "How I Made My Own iPhone from a Block of Aluminum - Strange Parts",
+				 "summary": "Scotty from Strange Parts machines a full iPhone body. He uses a desktop 3 axis mill to machine it with many complicated setups. There are some really good insights into reverse-engineering as well as fixturing and tool making for machining."
+			 },
+			 {
+				 "url": "https://www.lumafield.com/article/new-vs-used-sawstop",
+				 "id": "94",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/94.png",
+				 "title": "CT scan of a SawStop tablesaw safety mechanism",
+				 "summary": "We had posted a CT scan teardown to the newsletter before, but we like these so much that we\u2019re posting another. This time they analyze a SawStop system, which is a device that stops tablesaws when it detects skin contacting the saw. This device has to function well to save human lives (and avoid false triggers, since that ruins your saw for no reason), learn how it works in this post."
+			 },
+			 {
+				 "url": "https://blog.freecad.org/2024/11/19/freecad-version-1-0-released/",
+				 "id": "53",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/53.jpg",
+				 "title": "FreeCAD Version 1.0 Released",
+				 "summary": "After more than 20 years of development, the FreeCAD community releases version 1.0. This major milestone introduces a stable and feature-rich platform. Key features include tools for Building Information Modeling (BIM) to design buildings, CAM for machining simulations, and FEM for testing structural strength all directly within the FreeCAD."
+			 },
+			 {
+				 "url": "https://studiolorier.com/product/natural-balance-2/",
+				 "id": "93",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/93.png",
+				 "title": "\u201cNatural Balance\u201d Flower Pot Design",
+				 "summary": "This flowerpot designed by Studio Lorier, contains a water reservoir that gradually feeds the plant over weeks. When the reservoir is empty, the pot tilts to indicate a refill is required."
+			 },
+			 {
+				 "url": "https://www.youtube.com/watch?v=WWc4eNtUy2I",
+				 "id": "91",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/91.jpg",
+				 "title": "What Happens When You Break the Rules of Tape Loops? - iturnknobs",
+				 "summary": "Cassettes have two sides and ends, and once one side is finished, you flip it around. Looper tapes offer a continuous playback with a single loop of magnetic tape, but their length is typically short. Increasing the length is a topological challenge against tape bundling. In this video, iturnknobs explores a concept inspired by the Roland RE-201 to extend loop length by several minutes. But can you double the length of playback using the second side of the tape, much like a M\u00f6bius strip?"
+			 },
+			 {
+				 "url": "https://www.youtube.com/watch?v=GNJrhHoAtk8",
+				 "id": "89",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/89.png",
+				 "title": "O\u1d52 Shoe made with biodegradable organic polymers by OXMAN",
+				 "summary": "OXMAN introduced a new shoe made by PHA) thermoplastics that are synthetized by bacteria that and are one of the most biodegradable polymers. They customize and design the shoe parametrically into a a variety of thicknesses, densities shapes and mechanical behaviors with their in-house software. Later the shoe is woven-printed onto a form using a 5 axis 3d printer on a form with a textile base using the PHA filaments."
+			 },
+			 {
+				 "url": "https://www.youtube.com/watch?v=XQS9SECCp1I",
+				 "id": "80",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/80.jpg",
+				 "title": "Using Erlang upgrade a drone while in-flight. - Magnus Feuer",
+				 "summary": "Magnus Feuer demonstrates the hot-reloading capabilities of the programming language Erlang by updating the flight-controller code of a drone while it\u2019s flying. Something relevant to check out is the Nerves Project, which is a framework for embedded systems running on Erlang\u2019s infrastructure."
+			 },
+			 {
+				 "url": "https://x.com/jarrodwattsdev/status/1862299845710757980",
+				 "id": "84",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/84.png",
+				 "title": "Jailbreak an LLM, win $50,000",
+				 "summary": "Someone has set up a game (freysa.ai) where people attempt to trick a large language model (LLM) into giving away its money. See what happened next in this tweet."
+			 },
+			 {
+				 "url": "https://www.speculativeidentities.com/",
+				 "id": "82",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/82.jpg",
+				 "title": "Visual Design in Sci-fi",
+				 "summary": "A website that explores graphical designs used in different sci-fi films, mainly those relating to the visual identities of the fictional brands in the movies. Most pages include comments from the original designers and many detailed images."
+			 },
+			 {
+				 "url": "https://adventofcode.com/",
+				 "id": "87",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/87.png",
+				 "title": "Advent of Code",
+				 "summary": "This year\u2019s Advent of Code has begun! For those unfamiliar, this is a popular event held every year where a programming puzzle is released every day until Christmas. I for one am excited to do the first few puzzles and then give up and never look at it again."
+			 },
+			 {
+				 "url": "https://pdftobrainrot.org/",
+				 "id": "86",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/86.png",
+				 "title": "PDF to Brainrot",
+				 "summary": "This website turns your boring, dull study materials into TikTok-style clip summaries designed to maximize engagement. A funny joke or the future of micro-learning? You decide."
+			 },
+			 {
+				 "url": "https://blog.frost.kiwi/analytical-anti-aliasing/",
+				 "id": "81",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/81.png",
+				 "title": "AAA - Analytical Anti-Aliasing",
+				 "summary": "How do computer screens, which are made up of rectangular pixels, display curved lines? Anti-aliasing! This article goes over some of the different anti-aliasing methods and how they work in detail. Also on the page are demos of the various approaches so you can see the results of each method."
+			 },
+			 {
+				 "url": "https://www.youtube.com/watch?v=s4iGST6de_k",
+				 "id": "44",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/44.jpg",
+				 "title": "a YEAR of design to market summarized",
+				 "summary": "ALIMP Design Workshop summarizes their rapid product development and low volume manufacturing process of their lamp. Has great insights on how to select, manufacture, market your own designs with a small budget."
+			 },
+			 {
+				 "url": "https://fleetwood.dev/posts/you-could-have-designed-SOTA-positional-encoding",
+				 "id": "77",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/77.jpg",
+				 "title": "You could have designed Positional Encoding",
+				 "summary": "This article describes how positional encoding, which is the technique used to inform large language models of the word order in the input, works. Without proper positional information, the output of a model run can be the same for sequences with different word orders and meanings. Some familiarity with deep learning concepts might be required to understand the content, but the animations (made in Manim?) are nice regardless."
+			 },
+			 {
+				 "url": "https://surma.dev/things/ditherpunk/",
+				 "id": "76",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/76.png",
+				 "title": "How to create Ditherpunk images",
+				 "summary": "Surma explains what dithering is and how it\u2019s implemented, going over the many different possible methods. The idea of adding small perturbations to break up large uniform areas is interesting."
+			 },
+			 {
+				 "url": "https://restofworld.org/2024/grab-google-maps-southeast-asia/",
+				 "id": "78",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/78.png",
+				 "title": "Grab creates its own mapping service",
+				 "summary": "Grab transformed their drivers into a decentralized mapping force. It hadn\u2019t occurred to me that delivery apps were in a position to create their own maps before reading this article. Local businesses may still have some advantages over Big Tech companies when it comes to their own markets. Quite surprising that they made and used their own mapping hardware."
+			 },
+			 {
+				 "url": "http://stations.albertguillaumes.cat/",
+				 "id": "75",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/75.png",
+				 "title": "Subway Station Layouts",
+				 "summary": "Albert Guillaumes explored and documented 1,753 metro stations across Europe, driven by a curiosity of how engineers planned and built these complex structures. During the COVID-19 lockdown, he digitized all his sketches. You can select and explore any metro station you want to see directly on the map."
+			 },
+			 {
+				 "url": "https://oasis-model.github.io/",
+				 "id": "74",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/74.png",
+				 "title": "Oasis: A Universe in a Transformer",
+				 "summary": "Oasis is a real-time AI model that simulates gameplay in a virtual environment, trained on Minecraft. It can approximate mechanisms such as building/breaking blocks, and inventory management without a game engine. Its imperfect temporal coherence in long horizons adds a unique twist, allowing players to creatively reshape their surroundings."
+			 },
+			 {
+				 "url": "https://www.decarpentier.nl/carpentopod",
+				 "id": "45",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/45.jpg",
+				 "title": "Carpentopod: A walking table project",
+				 "summary": "Inspired heavily by Theo Jansen\u2019s \u201cStrandbeest\u201d, Gilliam de Carpentier turns the dynamic sculpture idea to a functional walking wooden coffee table. The design process involves a genetic algorithm to compare various mechanisms optimizing for minimum bobbing and foot slip. High-quality materials, such as CNC cut bamboo, and wireless control are two features not to miss."
+			 },
+			 {
+				 "url": "https://www.youtube.com/watch?v=_SwsatEJn9k",
+				 "id": "50",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/50.png",
+				 "title": "DIY SLM Metal 3D Printing Success - Metal Matters",
+				 "summary": "Over the past few years, Metal Matters has been developing his own DIY metal printer. He details his R&D process, including multiple failed attempts, and showcases the final product by printing a Benchy using 316 stainless steel"
+			 },
+			 {
+				 "url": "https://youtu.be/AAwozgdtsfA?si=9ZoncYq_m4TZw0fy",
+				 "id": "47",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/47.jpg",
+				 "title": "Hand-built spinning top breaks the 1 hour mark  -HiPerTops",
+				 "summary": "HiPer Tops has been continuously developing and perfecting their design for the longest spinning top. The latest iteration weighs approximately 400 grams and is constructed from tungsten carbide, copper, and aluminum. Each aspect of the design and manufacturing process is critical to its performance, including weight distribution, aerodynamics, spin tip texture, and material selection."
+			 },
+			 {
+				 "url": "https://terrytao.wordpress.com/career-advice/learn-and-relearn-your-field/",
+				 "id": "66",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/66.png",
+				 "title": "Advice on how to learn your field by Terence Tao",
+				 "summary": "Even after finalizing your research or project, you should keep questioning and exploring every concept deeply. Teaching, writing, and creating clarify knowledge, while tracking how ideas spread across articles and other media can reveal new insights and deepen your understanding of any subject."
+			 },
+			 {
+				 "url": "https://www.youtube.com/watch?v=OdPxijfY-kQ",
+				 "id": "46",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/46.jpg",
+				 "title": "A screw kit that is sorted autonomously with a custom machine -Christopher Helmke",
+				 "summary": "Christopher Helmke has built a screw counting machine that uses custom parts and electronics built onto euro-crates. He has documented his development process over a series of Youtube videos on his channel. He's now launching this service as a commercial product."
+			 },
+			 {
+				 "url": "https://visitarandomwebsite.com/",
+				 "id": "60",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/60.png",
+				 "title": "Visit A Random Website",
+				 "summary": "Built by Noah Baron it does exactly what it says and has a cool UI. After a couple runs do turn on instant mode to save on some wait time."
+			 },
+			 {
+				 "url": "https://www.youtube.com/watch?v=gbtlL8mTqJI&ab_channel=JanTecEngineering",
+				 "id": "71",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/71.jpg",
+				 "title": "How to 3D print warp-free with Peel-off Layers. -JanTec Engineering",
+				 "summary": "JanTec Engineering introduces and demonstrates how different materials can be used as interface layers to reduce warping and improve bed adhesion for filaments such as PP, ABS, ASA and TPU. There are some good tips and discussion in the comments."
+			 },
+			 {
+				 "url": "https://www.youtube.com/watch?v=yjD2n_e9E3w",
+				 "id": "56",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/56.png",
+				 "title": "GPT2 (predecessor of ChatGPT) built in Excel",
+				 "summary": "\"Spreadsheets are all you need\" demonstrates a GPT-2 model entirely built in Excel. Without being a developer, you can explore how transformer models like GPT-2 work without dealing with abstractions created by layers of code. The demo removes these layers, allowing you to see each step of the model\u2019s workings directly. Do download and play with it!"
+			 },
+			 {
+				 "url": "https://xyzdims.com/tag/hideo-kodama/",
+				 "id": "58",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/58.jpg",
+				 "title": "Hideo Kodama\u2019s significance in the history of 3D printing",
+				 "summary": "Dr. Hideo Kodama pioneered 3D printing in 1981 by creating one of the first rapid prototyping machines using UV-curable resin. But nowadays Chuck Hull is often credited as the inventor for patenting stereolithography and developing the .stl format in 1986. The test print he used was a house, might be cool turn it into a benchmark model. The article explores the history of 3D printing chronologically."
+			 },
+			 {
+				 "url": "https://sander.ai/2024/09/02/spectral-autoregression.html",
+				 "id": "67",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/67.png",
+				 "title": "Diffusion is spectral autoregression",
+				 "summary": "This writeup by Sander Dieleman investigates the frequency spectrum of data used to train diffusion models, uncovering interesting insights into why certain types of data result in higher-quality output."
+			 },
+			 {
+				 "url": "https://makeityourself.org/",
+				 "id": "70",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/70.png",
+				 "title": "Make It Yourself",
+				 "summary": "\"Make It Yourself\" is a digital book written by  N-O-D-E  showcasing over 1,000 DIY projects from creative individuals worldwide. Each project links to detailed instructions and is categorized by their manufacturing methods."
+			 },
+			 {
+				 "url": "https://build-its-inprogress.blogspot.com/2024/10/go-kart-revival-part-1-drive-units.html",
+				 "id": "69",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/69.JPG",
+				 "title": "Go Kart Drive Unit Revival",
+				 "summary": "Ben Katz revamps the drive system of an old go-kart project of his. For the casing he designs a custom monolithic 3d printed Aluminum water-jacket shell.  A very thorough writeup with great ideas and cool machining shots."
+			 },
+			 {
+				 "url": "https://walzr.com/bop-spotter",
+				 "id": "62",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/62.png",
+				 "title": "Bop Spotter",
+				 "summary": "Riley Walz has set up a box with an old Android phone in San Francisco that uses Shazam to detect music 24/7. With his culture surveillance initiative he aims to capture vibes and music trends in real-time instead of gunshots."
+			 },
+			 {
+				 "url": "https://youtu.be/3xBnIZkclI8?si=AVFqr7PZOMnpHswQ&t=126",
+				 "id": "61",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/61.jpg",
+				 "title": "Beyond Manual Dexterity: Designing a Multi-fingered Robotic Hand for Grasping and Crawling by Xiao GAO",
+				 "summary": "Researchers from EPFL demonstrate a robotic arm with a custom hand for grasping and accessing objects on a surface. They designed a hand that can grasp on both sides and train it with genetic algorithms in MuJoCo Sim. The hand can detach automatically, crawl to reach objects, pick it up, crawl back and re-attach."
+			 },
+			 {
+				 "url": "https://www.youtube.com/watch?v=B1QqAZeEfes",
+				 "id": "43",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/43.jpg",
+				 "title": "How labels multiply your knowledgebase, cash, time, on LOW effort. -David Malawey",
+				 "summary": "David Malawey highlights the benefits of labels and explains how you can make your tools and inventory more accessible by adding QR codes and indexing."
+			 },
+			 {
+				 "url": "https://youtu.be/Fy2_CUBz40A?si=lg5p_oAZ90mTPDBx&t=1416",
+				 "id": "65",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/65.png",
+				 "title": "Printing solder to create circuit boards",
+				 "summary": "Somehow a \u201cside-project\u201d in a car build series, this is a 2D gantry that melts solder onto a panel of FR4 to create circuit traces. Seems to be built using a standard 3D printer nozzle and extruder. One downside is that spray glue needs to be applied to the board for the traces to stick."
+			 },
+			 {
+				 "url": "https://www.youtube.com/watch?v=l2hg5VMWGf0",
+				 "id": "40",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/40.png",
+				 "title": "ErgO Smart ring keyboard+mouse - Sophia Dai",
+				 "summary": "Sophia Dai\u2019s ErgO is a smart, Bluetooth-enabled ring replacing keyboard and mouse in a very small form-factor. It features an IMU, trackball, buttons, and device switching, ideal for everyday tasks and active use. She shares her code and has building instructions on Hackaday."
+			 },
+			 {
+				 "url": "https://www.kickstarter.com/projects/daistes/swapmod-automated-multi-plate-system-for-a1-mini?ref=85v6ph",
+				 "id": "63",
+				 "vidurl": "https://hatsnewsletter.github.io/image/cover_images/63.mp4",
+				 "title": "Bambu Lab A1 Mini automated with automatic plate changer kit",
+				 "summary": "Andre Bar\u2019s DIY kit Swapmod enables a Bambu Lab A1 to become almost fully automated. The printer can swap its own build plate to be able to keep printing indefinitely."
+			 },
+			 {
+				 "url": "https://www.youtube.com/watch?v=RhV6WD2gScc",
+				 "id": "59",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/59.png",
+				 "title": "How To Reactivate Faded Receipts",
+				 "summary": "A one-time trick to make a faded-out thermal printed receipt visible again."
+			 },
+			 {
+				 "url": "https://www.youtube.com/watch?v=0SRVJaOg9Co",
+				 "id": "41",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/41.png",
+				 "title": "Figure\u202f02 - a practical humanoid robot",
+				 "summary": "Figure introduces Figure 02, an autonomous humanoid robot featuring a 5-hour runtime and self-correcting behavior to adapt to changes in the task."
+			 },
+			 {
+				 "url": "https://www.youtube.com/watch?v=8VbOhdxjPyI",
+				 "id": "39",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/39.png",
+				 "title": "The Czinger 21C Chassis",
+				 "summary": "Czinger Vehicles\u2019 Bio-Logic chassis is designed by optimizing multiple variables together: stiffness, weight, fatigue, crash safety, and manufacturing using AI-driven software. It is additively manufactured with their own patented alloys."
+			 },
+			 {
+				 "url": "https://aschmelyun.com/blog/getting-my-daily-news-from-a-dot-matrix-printer/",
+				 "id": "37",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/37.jpg",
+				 "title": "Getting my news from a dot matrix printer",
+				 "summary": "Andrew Schmelyun builds a custom \"front page\" using a dot matrix printer (and a Raspberry Pi) to get his daily news, weather and stocks info."
+			 },
+			 {
+				 "url": "https://www.youtube.com/watch?v=sjluXwozFPE",
+				 "id": "35",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/35.png",
+				 "title": "Can we print a sub 1minute Benchy?",
+				 "summary": "Roetz 4.0 explores whether a sub 1 minute benchy is possible with a machine that has been converted from an old  CMM, air bearings and custom designed parts using Klipper Firmware."
+			 },
+			 {
+				 "url": "https://www.youtube.com/watch?v=QXfPpXRM8bU",
+				 "id": "34",
+				 "imgurl": "https://hatsnewsletter.github.io/image/cover_images/34.png",
+				 "title": "Laser engraving 3D prints -Batch Research Lab",
+				 "summary": "Using an X tool laser on 3D printed parts the team achieved the best results with a 2W infrared laser, creating white markings on black ABS and etching it. The markings are water and weather proof. A full breakdown of their process and parameters is available on their website."
+			 }
+		 ];
+         const prevButton = document.getElementById("prev-page");
+         const nextButton = document.getElementById("next-page");
+         const pageInfo = document.getElementById("page-info");
+		 
+         const articlesPerPage = 10; // Adjust the number of articles per page
+         let currentPage = 1;
+		 
+         function displayPage(page) {
+             articlesContainer.innerHTML = ""; // Clear previous articles
+             const start = (page - 1) * articlesPerPage;
+             const end = start + articlesPerPage;
+             const pageArticles = articles.slice(start, end);
+			 
+             pageArticles.forEach(article => {
+                 articlesContainer.appendChild(renderPost(article));
+             });
+			 
+             pageInfo.textContent = `Page ${page}`;
+             updateButtons();
+         }
+		 
+         function updateButtons() {
+             prevButton.disabled = currentPage === 1;
+             nextButton.disabled = currentPage * articlesPerPage >= articles.length;
+         }
+
+		 function nextPage(){
+             if (currentPage * articlesPerPage < articles.length) {
+                 currentPage++;
+                 displayPage(currentPage);
+				 window.scrollTo(0,0);
+             }
+         };
+
+		 function prevPage(){
+             if (currentPage > 1) {
+                 currentPage--;
+                 displayPage(currentPage);
+				 window.scrollTo(0,document.body.scrollHeight);
+             }
+         };
+		 
+         prevButton.addEventListener("click", prevPage);
+		 
+         nextButton.addEventListener("click", nextPage);
+
+		 function doc_keyUp(e) {
+			 if (e.code === 'ArrowLeft') {
+				 prevPage();
+			 } else if (e.code === 'ArrowRight') {
+				 nextPage();
+			 };
+		 };
+		 // register the handler 
+		 document.addEventListener('keyup', doc_keyUp, false);
+		 
+         displayPage(currentPage);
+     });
+   </script>
+   
    <div class="container">
-    <a href="https://www.theverge.com/news/622963/byd-dji-vehicle-mounted-drone-launcher" style="text-decoration: none;" target="_blank">
-     <div class="article" id="130">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/130.png"/>
-      <h3 class="title">
-       Roof mounted drone launcher for BYD cars
-      </h3>
-      <p class="summary">
-       BYD, in collaboration with DJI, introduced “Lingyuan”, a roof-mounted drone system for its EVs, available in China for $2,197. The drone can launch, follow, and return while the car is in motion, integrating AI and video editing tools.
-      </p>
-     </div>
-    </a>
-    <a href="https://www.graz.io/articles/bayleaf-wireless-keyboard" style="text-decoration: none;" target="_blank">
-     <div class="article" id="129">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/129.png"/>
-      <h3 class="title">
-       Low-profile split keyboard build
-      </h3>
-      <p class="summary">
-       Sebestian Graz designs and fabricates a split-keyboard that uses ultra low profile Kailh · PG1316S switches, an aluminum enclosure and MJF 3d printed keycaps. The result is stunning.
-      </p>
-     </div>
-    </a>
-    <a href="https://obsidian.md/blog/free-for-work/" style="text-decoration: none;" target="_blank">
-     <div class="article" id="127">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/127.png"/>
-      <h3 class="title">
-       Obsidian is now free for work use!
-      </h3>
-      <p class="summary">
-       Buying a commercial license is no longer necessary to use Obsidian at work.
-      </p>
-     </div>
-    </a>
-    <a href="https://spectrum.ieee.org/diy-muon-tomography" style="text-decoration: none;" target="_blank">
-     <div class="article" id="128">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/128.png"/>
-      <h3 class="title">
-       DIY Muon Tomography
-      </h3>
-      <p class="summary">
-       This article details how to build a muon detector of your very own. You can use these devices to do something akin to an x-ray scan on buildings, detecting hidden rooms and such.
-      </p>
-     </div>
-    </a>
-    <a href="https://www.youtube.com/watch?v=rnwPmoWMGqk" style="text-decoration: none;" target="_blank">
-     <div class="article" id="126">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/126.jpg"/>
-      <h3 class="title">
-       I built my ideal mini computer - abe's projects
-      </h3>
-      <p class="summary">
-       Another buildlog for a PDA-like handheld computer project. The extension ports in the back allowing the user to plug in add-ons that extend the device’s capabilities was the highlight for me.
-      </p>
-     </div>
-    </a>
-    <a href="https://www.hackster.io/news/the-raspberry-pi-rp2040-gets-a-surprise-speed-boost-unlocks-an-official-200mhz-mode-d6c9d267de5a" style="text-decoration: none;" target="_blank">
-     <div class="article" id="125">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/125.png"/>
-      <h3 class="title">
-       The Raspberry Pi RP2040 can now run at 200MH
-      </h3>
-      <p class="summary">
-       A new update to the pico-sdk allows the Raspberry Pi RP2040 chip to run at a maximum clock speed of 200MHz instead of the stock 125MHz speed.
-      </p>
-     </div>
-    </a>
-    <a href="https://youtu.be/sXwDrcd1t-E?si=u-ol4cXRyMJXJKTn" style="text-decoration: none;" target="_blank">
-     <div class="article" id="123">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/123.jpg"/>
-      <h3 class="title">
-       This ESP32 Antenna Array Can See WiFi - Jeija
-      </h3>
-      <p class="summary">
-       This ESP32 antenna array named "ESPARGOS" was developed by researchers at the Institute of Telecommunications at the University of Stuttgart. It uses a grid of ESP32s to locate where WiFi signals are coming from. There are some very impressive demos in the video of how WiFi signals propagate and reflect.
-      </p>
-     </div>
-    </a>
-    <a href="https://www.iroh.computer/sendme" style="text-decoration: none;" target="_blank">
-     <div class="article" id="122">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/122.png"/>
-      <h3 class="title">
-       Sendme - Iroh
-      </h3>
-      <p class="summary">
-       A tool for easy file transfer with no accounts, no complications, end-to-end encrypted. Enables you to directly transfer files with the help of a single link.
-      </p>
-     </div>
-    </a>
-    <a href="https://www.rskey.org/~mwsebastian/miscprj/forensics.htm" style="text-decoration: none;" target="_blank">
-     <div class="article" id="114">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/114.png"/>
-      <h3 class="title">
-       Calculator Forensics
-      </h3>
-      <p class="summary">
-       A very old webpage that explains a method to figure out the chip used inside a calculator without opening it up, exploiting the floating point implementation in the chip. The table of data is a bit outdated, I found out that a calculator model that I’m using has apparently changed ICs since 2007 (shocker!)
-      </p>
-     </div>
-    </a>
-    <a href="https://www.byran.ee/posts/creation/" style="text-decoration: none;" target="_blank">
-     <div class="article" id="112">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/112.jpg"/>
-      <h3 class="title">
-       Building a laptop from scratch -Byran Huang
-      </h3>
-      <p class="summary">
-       Byran designed and built an open-source laptop project that’s seriously impressive. Its chasis is inspired by MacBook and Razer laptops and is built from scratch, it features a 4K AMOLED display, a removable wireless mechanical keyboard, a CNC aluminum chassis, and an RK3588-based motherboard. He tackles PCB design, power management, and firmware development for the build.
-      </p>
-     </div>
-    </a>
-    <a href="https://www.youtube.com/watch?v=I65oL91O_aM" style="text-decoration: none;" target="_blank">
-     <div class="article" id="96">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/96.jpg"/>
-      <h3 class="title">
-       A(bstract)typography
-      </h3>
-      <p class="summary">
-       Atypography, or abstract typography, is the concept of deconstructing letters into abstract shapes with intention. It creates a deliberate barrier between text and the artwork it accompanies, acting as a form of friction. This approach elevates the form of the artwork while still allowing the message to be conveyed.
-      </p>
-     </div>
-    </a>
-    <a href="https://www.youtube.com/watch?v=ZyF75d7zDsM" style="text-decoration: none;" target="_blank">
-     <div class="article" id="121">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/121.jpg"/>
-      <h3 class="title">
-       DIY Janko Piano
-      </h3>
-      <p class="summary">
-       A series of videos in which Mike Filip attempts to build his own piano with a Janko layout, in which the keys are arranged such that you can play the same melody in different keys without changing your hand shape, similar to how it is on a guitar. In the videos there are some interesting discussions of how different piano key mechanisms work.
-      </p>
-     </div>
-    </a>
-    <a href="https://timkellogg.me/blog/2025/02/03/s1" style="text-decoration: none;" target="_blank">
-     <div class="article" id="119">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/119.jpg"/>
-      <h3 class="title">
-       S1: The $6 R1 Competitor?
-      </h3>
-      <p class="summary">
-       A summary of the S1 paper by Tim Kellogg, which is about a small chain-of-thought language model akin to OpenAI’s o1 and Deepseek R1. This is a much smaller model trained with slightly different methods compared to the big shots, but the goals are the same: to make the language model write out some of its thoughts before answering. I don’t know whether to find the method they used to keep the model thinking for longer astonishing or disappointing.
-      </p>
-     </div>
-    </a>
-    <a href="https://timsh.org/tracking-myself-down-through-in-app-ads/" style="text-decoration: none;" target="_blank">
-     <div class="article" id="120">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/120.png"/>
-      <h3 class="title">
-       Everyone knows your location: tracking myself down through in-app ads
-      </h3>
-      <p class="summary">
-       Tim Sh delves deep into how apps track their users and sell data by manually investigating the network packets sent out by his phone.
-      </p>
-     </div>
-    </a>
-    <a href="https://walkkumano.com/koyabound/" style="text-decoration: none;" target="_blank">
-     <div class="article" id="118">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/118.jpg"/>
-      <h3 class="title">
-       Koya Bound
-      </h3>
-      <p class="summary">
-       A travel log by Craig Mod and Dan Rubin who walked for eight days along the Kumano Kodo pilgrimage route in Japan in April 2016. Besides the lovely photography, I love the map on the side that shows you where on the route the travellers are as you scroll.
-      </p>
-     </div>
-    </a>
-    <a href="https://andrewchilds.com/posts/building-a-t1d-smartwatch-from-scratch" style="text-decoration: none;" target="_blank">
-     <div class="article" id="117">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/117.jpg"/>
-      <h3 class="title">
-       Building a (T1D) smartwatch
-      </h3>
-      <p class="summary">
-       Andrew Childs builds a smartwatch for his son with diabetes to display glucose readings. The challenges faced during development are documented nicely, with many issues stemming from efforts to make the watch water-resistant. Especially when considering that the author is a software developer with little prior hardware experience, it’s impressive how sleek the final product looks.
-      </p>
-     </div>
-    </a>
-    <a href="https://practicapp.com/binary-modding-a-watercooler/" style="text-decoration: none;" target="_blank">
-     <div class="article" id="116">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/116.jpg"/>
-      <h3 class="title">
-       Binary Modding a Water Dispenser
-      </h3>
-      <p class="summary">
-       Displeased with the user experience on a new water dispenser, Robbe Derks takes matters into his own hands. He dumps, reverse engineers and modifies the firmware to get the buttons acting the way he wants. A nice example of how the reverse engineering process for firmware works.
-      </p>
-     </div>
-    </a>
-    <a href="https://ryanis.cool/cosmos/" style="text-decoration: none;" target="_blank">
-     <div class="article" id="115">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/115.png"/>
-      <h3 class="title">
-       Generate a keyboard from a hand scan
-      </h3>
-      <p class="summary">
-       This website lets you scan your hand using a camera, and then generates you a comfortable keyboard chassis based on your measurements. Then you can print the chassis on a 3D printer and add in electronics to make a custom keyboard! There are a bunch of other configuration options ranging from which board and switches you are going to use to additional stuff like encoders.
-      </p>
-     </div>
-    </a>
-    <a href="https://mikecoats.com/vanmoof-eshifter-reverse-engineering-part-1/" style="text-decoration: none;" target="_blank">
-     <div class="article" id="113">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/113.jpg"/>
-      <h3 class="title">
-       Reverse Engineering a VanMoof e-shifter
-      </h3>
-      <p class="summary">
-       I had heard that VanMoofs were techy bicycles but had no idea they had automatic shifters until I saw this blog post. In this series Mike Coats details the process of reverse engineering the communication protocol used by the system. The effort is still in-progress, but the tools employed so far are quite interesting.
-      </p>
-     </div>
-    </a>
-    <a href="https://khz.ac/sound/ribbon-mic/" style="text-decoration: none;" target="_blank">
-     <div class="article" id="111">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/111.jpg"/>
-      <h3 class="title">
-       Ribbon Mic Build
-      </h3>
-      <p class="summary">
-       A build-log for a ribbon microphone. The author talks about how ribbon mics work and builds one from scratch. The painstaking process of corrugating a thin sheet of metal to create the ribbon is described in detail.
-      </p>
-     </div>
-    </a>
-    <a href="https://calbryant.uk/blog/3d-printing-giant-things-with-jigsaw-generator/" style="text-decoration: none;" target="_blank">
-     <div class="article" id="110">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/110.webp"/>
-      <h3 class="title">
-       3D printing giant things with a python jigsaw generator
-      </h3>
-      <p class="summary">
-       Cal Bryant creates a program that automatically splits big 3D models into smaller parts with jigsaw-like edges, so that they fit on a 3D printer and can be printed one by one. No projects printed using the method yet, but the development process is given in detail.
-      </p>
-     </div>
-    </a>
-    <a href="https://youtu.be/wiRMdRi0LrI" style="text-decoration: none;" target="_blank">
-     <div class="article" id="109">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/109.jpg"/>
-      <h3 class="title">
-       A Unique Satellite Reaction Wheel - Breaking Taps
-      </h3>
-      <p class="summary">
-       Reaction wheels are heavy disks connected to motors. One use for them is to steer and orient satellites using the conservation of momentum. In this video Breaking Taps explains how a different design that circulates liquid metal around works and builds a few of his own. While this alternative seems mostly useful for spacecraft, it’s possible we will see these motors in other applications.
-      </p>
-     </div>
-    </a>
-    <a href="https://dvaluch.web.cern.ch/hh3/" style="text-decoration: none;" target="_blank">
-     <div class="article" id="108">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/108.png"/>
-      <h3 class="title">
-       The Most Accurate Pendulum Clock on the Planet
-      </h3>
-      <p class="summary">
-       Daniel Valuch at CERN gets his hands on a pendulum clock. He modifies it, adding in a phase locked loop to sync it to a super-precise caesium fountain clock (which they of course have), so that the old grandpa clock deviates less than a second in 158 million years. The resulting system ends up successfully correcting for vibrations from an earthquake (granted, one that’s very far away).
-      </p>
-     </div>
-    </a>
-    <a href="https://www.hanssummers.com/homebrew/homebrewbattery.html" style="text-decoration: none;" target="_blank">
-     <div class="article" id="106">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/106.png"/>
-      <h3 class="title">
-       When Life Give You Lemons You Make Homebrew Batteries
-      </h3>
-      <p class="summary">
-       Hans Summers attempts to power his radio transmitter with a lemon battery. He comes up with modifications to the batteries to make lemon juice radio communication possible in the blogpost which are worth a read.
-      </p>
-     </div>
-    </a>
-    <a href="https://rodneybrooks.com/predictions-scorecard-2025-january-01/" style="text-decoration: none;" target="_blank">
-     <div class="article" id="107">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/107.jpg"/>
-      <h3 class="title">
-       Rodney Brooks’ Predictions Scorecard
-      </h3>
-      <p class="summary">
-       Rodney Brooks, one of the founders of iRobot (of Roomba fame) and many other robotics startups, provides an annual update on his predictions related to self-driving cars, robotics, AI and space travel. This year he focuses on the developments made in self-driving cars and addresses the advancements in generative AI. Contrary to most predictions of this sort, he has a more modest assessment of the pace of technological development.
-      </p>
-     </div>
-    </a>
-    <a href="https://youtu.be/ZF3XPORAF0A?si=qE2uKulmmr-nG1on" style="text-decoration: none;" target="_blank">
-     <div class="article" id="102">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/102.png"/>
-      <h3 class="title">
-       One Man Plastics Factory - Exploring the Simulation
-      </h3>
-      <p class="summary">
-       Ken Pillonel explains and demonstrates how he is able to launch, manufacture, ship and iterate on his products by using a SLS 3D printer and a Opulo pick and place machine at his home. He has a script that enables him to manufacture on demand, straight from order to print. This enables him to correct mistakes on the run and offer alternative designs on a whim.
-      </p>
-     </div>
-    </a>
-    <a href="https://ithy.com/" style="text-decoration: none;" target="_blank">
-     <div class="article" id="103">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/103.png"/>
-      <h3 class="title">
-       Get multiple AI’s to answer your question together — ithy⠀
-      </h3>
-      <p class="summary">
-       Ithy asks your questions to multiple different models and compiles their answers into one holistic and inclusive answer.  You can share the answer after it is generated as a short URL.
-      </p>
-     </div>
-    </a>
-    <a href="https://formlabs.com/eu/blog/introducing-texture-engine/" style="text-decoration: none;" target="_blank">
-     <div class="article" id="101">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/101.png"/>
-      <h3 class="title">
-       Free online tool for adding texture to 3D Models | Formlabs
-      </h3>
-      <p class="summary">
-       I came across this tool from Formlabs while exploring how I could get a SLS-like rough texture on my Resin 3D printed parts. This is a cool tool that enables you to add texture to a part or the whole of your STL file before 3D printing. You have to take care to have a uniform mesh for the texture to work well. Still not over what happened to Micronics though :(
-      </p>
-     </div>
-    </a>
-    <a href="https://www.youtube.com/watch?v=IFaAjR_RRJs" style="text-decoration: none;" target="_blank">
-     <div class="article" id="104">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/104.jpg"/>
-      <h3 class="title">
-       12,419 Days Of Strandbeest Evolution - Veritasium
-      </h3>
-      <p class="summary">
-       Theo Jansen conceived the idea of Strandbeests to help build dunes against rising sea levels by kicking up sand. Using genetic algorithms, he optimized their leg geometry and walking paths. For the past 30 years, he has been building, evolving and testing these mechanical creatures as if they were living animals, strolling the beach.
-      </p>
-     </div>
-    </a>
-    <a href="https://tinycircuits.com/" style="text-decoration: none;" target="_blank">
-     <div class="article" id="100">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/100.png"/>
-      <h3 class="title">
-       TinyCircuits - Maker of Tiny, Open Source Electronic Gadgets
-      </h3>
-      <p class="summary">
-       TinyCircuits designs and manufactures open-source, miniature electronics. They focus on creating innovative, high-quality gadgets that are both functional and fun.
-      </p>
-     </div>
-    </a>
-    <a href="https://transistor-man.com/gyroscopic_gyros.html" style="text-decoration: none;" target="_blank">
-     <div class="article" id="92">
-      <video autoplay="autoplay" class="thumbnail" loop="loop" muted="muted">
-       <source src="https://hatsnewsletter.github.io/image/cover_images/92.mp4" type="video/mp4"/>
-       Your browser does not support the video tag.
-      </video>
-      <h3 class="title">
-       Gyroscopic Gyros
-      </h3>
-      <p class="summary">
-       Dane Kouttron creates culinary history by figuring out how to rotate meat not in one, but three axes. Great build log with a bunch of videos.
-      </p>
-     </div>
-    </a>
-    <a href="https://www.youtube.com/watch?v=DY1SuTu32fk&amp;ab_channel=StevenBennett" style="text-decoration: none;" target="_blank">
-     <div class="article" id="98">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/98.jpg"/>
-      <h3 class="title">
-       Custom DIYson lamp made by Steven Bennett shows signs of life
-      </h3>
-      <p class="summary">
-       Steve Bennett has been working on small updates and solutions that make the DIYson work really well while resolving some integral issues. Things are coming together as he covers the latest improvements since the last build log in this video. All files for the up-to-date unit are available on his GitHub repo.
-      </p>
-     </div>
-    </a>
-    <a href="https://www.vice.com/en/article/viganella-italy-fake-manmade-sun/" style="text-decoration: none;" target="_blank">
-     <div class="article" id="97">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/97.png"/>
-      <h3 class="title">
-       The Italian Town That Built Its Own Sun
-      </h3>
-      <p class="summary">
-       For three months every year, the Italian town of Viganella is shrouded in darkness, thanks to the surrounding mountains. In 2006, architect Giacomo Bonzani proposed a solution: a massive mirror, 8 meters wide and 5 meters tall, installed on a nearby peak. Controlled by software, the mirror reflects sunlight into the main square for 6 hours daily, bringing warmth and light. Beyond practical benefits, it fosters socialization in the town's quiet winters and since has inspired similar efforts, like the one in Rjukan Norway.
-      </p>
-     </div>
-    </a>
-    <a href="https://youtu.be/Yrl4OmS3bBA?si=2kkJsV7AAqeGZIs9" style="text-decoration: none;" target="_blank">
-     <div class="article" id="95">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/95.png"/>
-      <h3 class="title">
-       How I Made My Own iPhone from a Block of Aluminum - Strange Parts
-      </h3>
-      <p class="summary">
-       Scotty from Strange Parts machines a full iPhone body. He uses a desktop 3 axis mill to machine it with many complicated setups. There are some really good insights into reverse-engineering as well as fixturing and tool making for machining.
-      </p>
-     </div>
-    </a>
-    <a href="https://www.lumafield.com/article/new-vs-used-sawstop" style="text-decoration: none;" target="_blank">
-     <div class="article" id="94">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/94.png"/>
-      <h3 class="title">
-       CT scan of a SawStop tablesaw safety mechanism
-      </h3>
-      <p class="summary">
-       We had posted a CT scan teardown to the newsletter before, but we like these so much that we’re posting another. This time they analyze a SawStop system, which is a device that stops tablesaws when it detects skin contacting the saw. This device has to function well to save human lives (and avoid false triggers, since that ruins your saw for no reason), learn how it works in this post.
-      </p>
-     </div>
-    </a>
-    <a href="https://blog.freecad.org/2024/11/19/freecad-version-1-0-released/" style="text-decoration: none;" target="_blank">
-     <div class="article" id="53">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/53.jpg"/>
-      <h3 class="title">
-       FreeCAD Version 1.0 Released
-      </h3>
-      <p class="summary">
-       After more than 20 years of development, the FreeCAD community releases version 1.0. This major milestone introduces a stable and feature-rich platform. Key features include tools for Building Information Modeling (BIM) to design buildings, CAM for machining simulations, and FEM for testing structural strength all directly within the FreeCAD.
-      </p>
-     </div>
-    </a>
-    <a href="https://studiolorier.com/product/natural-balance-2/" style="text-decoration: none;" target="_blank">
-     <div class="article" id="93">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/93.png"/>
-      <h3 class="title">
-       “Natural Balance” Flower Pot Design
-      </h3>
-      <p class="summary">
-       This flowerpot designed by Studio Lorier, contains a water reservoir that gradually feeds the plant over weeks. When the reservoir is empty, the pot tilts to indicate a refill is required.
-      </p>
-     </div>
-    </a>
-    <a href="https://www.youtube.com/watch?v=WWc4eNtUy2I" style="text-decoration: none;" target="_blank">
-     <div class="article" id="91">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/91.jpg"/>
-      <h3 class="title">
-       What Happens When You Break the Rules of Tape Loops? - iturnknobs
-      </h3>
-      <p class="summary">
-       Cassettes have two sides and ends, and once one side is finished, you flip it around. Looper tapes offer a continuous playback with a single loop of magnetic tape, but their length is typically short. Increasing the length is a topological challenge against tape bundling. In this video, iturnknobs explores a concept inspired by the Roland RE-201 to extend loop length by several minutes. But can you double the length of playback using the second side of the tape, much like a Möbius strip?
-      </p>
-     </div>
-    </a>
-    <a href="https://www.youtube.com/watch?v=GNJrhHoAtk8" style="text-decoration: none;" target="_blank">
-     <div class="article" id="89">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/89.png"/>
-      <h3 class="title">
-       Oᵒ Shoe made with biodegradable organic polymers by OXMAN
-      </h3>
-      <p class="summary">
-       OXMAN introduced a new shoe made by PHA) thermoplastics that are synthetized by bacteria that and are one of the most biodegradable polymers. They customize and design the shoe parametrically into a a variety of thicknesses, densities shapes and mechanical behaviors with their in-house software. Later the shoe is woven-printed onto a form using a 5 axis 3d printer on a form with a textile base using the PHA filaments.
-      </p>
-     </div>
-    </a>
-    <a href="https://www.youtube.com/watch?v=XQS9SECCp1I" style="text-decoration: none;" target="_blank">
-     <div class="article" id="80">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/80.jpg"/>
-      <h3 class="title">
-       Using Erlang upgrade a drone while in-flight. - Magnus Feuer
-      </h3>
-      <p class="summary">
-       Magnus Feuer demonstrates the hot-reloading capabilities of the programming language Erlang by updating the flight-controller code of a drone while it’s flying. Something relevant to check out is the Nerves Project, which is a framework for embedded systems running on Erlang’s infrastructure.
-      </p>
-     </div>
-    </a>
-    <a href="https://x.com/jarrodwattsdev/status/1862299845710757980" style="text-decoration: none;" target="_blank">
-     <div class="article" id="84">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/84.png"/>
-      <h3 class="title">
-       Jailbreak an LLM, win $50,000
-      </h3>
-      <p class="summary">
-       Someone has set up a game (freysa.ai) where people attempt to trick a large language model (LLM) into giving away its money. See what happened next in this tweet.
-      </p>
-     </div>
-    </a>
-    <a href="https://www.speculativeidentities.com/" style="text-decoration: none;" target="_blank">
-     <div class="article" id="82">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/82.jpg"/>
-      <h3 class="title">
-       Visual Design in Sci-fi
-      </h3>
-      <p class="summary">
-       A website that explores graphical designs used in different sci-fi films, mainly those relating to the visual identities of the fictional brands in the movies. Most pages include comments from the original designers and many detailed images.
-      </p>
-     </div>
-    </a>
-    <a href="https://adventofcode.com/" style="text-decoration: none;" target="_blank">
-     <div class="article" id="87">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/87.png"/>
-      <h3 class="title">
-       Advent of Code
-      </h3>
-      <p class="summary">
-       This year’s Advent of Code has begun! For those unfamiliar, this is a popular event held every year where a programming puzzle is released every day until Christmas. I for one am excited to do the first few puzzles and then give up and never look at it again.
-      </p>
-     </div>
-    </a>
-    <a href="https://pdftobrainrot.org/" style="text-decoration: none;" target="_blank">
-     <div class="article" id="86">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/86.png"/>
-      <h3 class="title">
-       PDF to Brainrot
-      </h3>
-      <p class="summary">
-       This website turns your boring, dull study materials into TikTok-style clip summaries designed to maximize engagement. A funny joke or the future of micro-learning? You decide.
-      </p>
-     </div>
-    </a>
-    <a href="https://blog.frost.kiwi/analytical-anti-aliasing/" style="text-decoration: none;" target="_blank">
-     <div class="article" id="81">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/81.png"/>
-      <h3 class="title">
-       AAA - Analytical Anti-Aliasing
-      </h3>
-      <p class="summary">
-       How do computer screens, which are made up of rectangular pixels, display curved lines? Anti-aliasing! This article goes over some of the different anti-aliasing methods and how they work in detail. Also on the page are demos of the various approaches so you can see the results of each method.
-      </p>
-     </div>
-    </a>
-    <a href="https://www.youtube.com/watch?v=s4iGST6de_k" style="text-decoration: none;" target="_blank">
-     <div class="article" id="44">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/44.jpg"/>
-      <h3 class="title">
-       a YEAR of design to market summarized
-      </h3>
-      <p class="summary">
-       ALIMP Design Workshop summarizes their rapid product development and low volume manufacturing process of their lamp. Has great insights on how to select, manufacture, market your own designs with a small budget.
-      </p>
-     </div>
-    </a>
-    <a href="https://fleetwood.dev/posts/you-could-have-designed-SOTA-positional-encoding" style="text-decoration: none;" target="_blank">
-     <div class="article" id="77">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/77.jpg"/>
-      <h3 class="title">
-       You could have designed Positional Encoding
-      </h3>
-      <p class="summary">
-       This article describes how positional encoding, which is the technique used to inform large language models of the word order in the input, works. Without proper positional information, the output of a model run can be the same for sequences with different word orders and meanings. Some familiarity with deep learning concepts might be required to understand the content, but the animations (made in Manim?) are nice regardless.
-      </p>
-     </div>
-    </a>
-    <a href="https://surma.dev/things/ditherpunk/" style="text-decoration: none;" target="_blank">
-     <div class="article" id="76">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/76.png"/>
-      <h3 class="title">
-       How to create Ditherpunk images
-      </h3>
-      <p class="summary">
-       Surma explains what dithering is and how it’s implemented, going over the many different possible methods. The idea of adding small perturbations to break up large uniform areas is interesting.
-      </p>
-     </div>
-    </a>
-    <a href="https://restofworld.org/2024/grab-google-maps-southeast-asia/" style="text-decoration: none;" target="_blank">
-     <div class="article" id="78">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/78.png"/>
-      <h3 class="title">
-       Grab creates its own mapping service
-      </h3>
-      <p class="summary">
-       Grab transformed their drivers into a decentralized mapping force. It hadn’t occurred to me that delivery apps were in a position to create their own maps before reading this article. Local businesses may still have some advantages over Big Tech companies when it comes to their own markets. Quite surprising that they made and used their own mapping hardware.
-      </p>
-     </div>
-    </a>
-    <a href="http://stations.albertguillaumes.cat/" style="text-decoration: none;" target="_blank">
-     <div class="article" id="75">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/75.png"/>
-      <h3 class="title">
-       Subway Station Layouts
-      </h3>
-      <p class="summary">
-       Albert Guillaumes explored and documented 1,753 metro stations across Europe, driven by a curiosity of how engineers planned and built these complex structures. During the COVID-19 lockdown, he digitized all his sketches. You can select and explore any metro station you want to see directly on the map.
-      </p>
-     </div>
-    </a>
-    <a href="https://oasis-model.github.io/" style="text-decoration: none;" target="_blank">
-     <div class="article" id="74">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/74.png"/>
-      <h3 class="title">
-       Oasis: A Universe in a Transformer
-      </h3>
-      <p class="summary">
-       Oasis is a real-time AI model that simulates gameplay in a virtual environment, trained on Minecraft. It can approximate mechanisms such as building/breaking blocks, and inventory management without a game engine. Its imperfect temporal coherence in long horizons adds a unique twist, allowing players to creatively reshape their surroundings.
-      </p>
-     </div>
-    </a>
-    <a href="https://www.decarpentier.nl/carpentopod" style="text-decoration: none;" target="_blank">
-     <div class="article" id="45">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/45.jpg"/>
-      <h3 class="title">
-       Carpentopod: A walking table project
-      </h3>
-      <p class="summary">
-       Inspired heavily by Theo Jansen’s “Strandbeest”, Gilliam de Carpentier turns the dynamic sculpture idea to a functional walking wooden coffee table. The design process involves a genetic algorithm to compare various mechanisms optimizing for minimum bobbing and foot slip. High-quality materials, such as CNC cut bamboo, and wireless control are two features not to miss.
-      </p>
-     </div>
-    </a>
-    <a href="https://www.youtube.com/watch?v=_SwsatEJn9k" style="text-decoration: none;" target="_blank">
-     <div class="article" id="50">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/50.png"/>
-      <h3 class="title">
-       DIY SLM Metal 3D Printing Success - Metal Matters
-      </h3>
-      <p class="summary">
-       Over the past few years, Metal Matters has been developing his own DIY metal printer. He details his R&amp;D process, including multiple failed attempts, and showcases the final product by printing a Benchy using 316 stainless steel
-      </p>
-     </div>
-    </a>
-    <a href="https://youtu.be/AAwozgdtsfA?si=9ZoncYq_m4TZw0fy" style="text-decoration: none;" target="_blank">
-     <div class="article" id="47">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/47.jpg"/>
-      <h3 class="title">
-       Hand-built spinning top breaks the 1 hour mark  -HiPerTops
-      </h3>
-      <p class="summary">
-       HiPer Tops has been continuously developing and perfecting their design for the longest spinning top. The latest iteration weighs approximately 400 grams and is constructed from tungsten carbide, copper, and aluminum. Each aspect of the design and manufacturing process is critical to its performance, including weight distribution, aerodynamics, spin tip texture, and material selection.
-      </p>
-     </div>
-    </a>
-    <a href="https://terrytao.wordpress.com/career-advice/learn-and-relearn-your-field/" style="text-decoration: none;" target="_blank">
-     <div class="article" id="66">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/66.png"/>
-      <h3 class="title">
-       Advice on how to learn your field by Terence Tao
-      </h3>
-      <p class="summary">
-       Even after finalizing your research or project, you should keep questioning and exploring every concept deeply. Teaching, writing, and creating clarify knowledge, while tracking how ideas spread across articles and other media can reveal new insights and deepen your understanding of any subject.
-      </p>
-     </div>
-    </a>
-    <a href="https://www.youtube.com/watch?v=OdPxijfY-kQ" style="text-decoration: none;" target="_blank">
-     <div class="article" id="46">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/46.jpg"/>
-      <h3 class="title">
-       A screw kit that is sorted autonomously with a custom machine -Christopher Helmke
-      </h3>
-      <p class="summary">
-       Christopher Helmke has built a screw counting machine that uses custom parts and electronics built onto euro-crates. He has documented his development process over a series of Youtube videos on his channel. He's now launching this service as a commercial product.
-      </p>
-     </div>
-    </a>
-    <a href="https://visitarandomwebsite.com/" style="text-decoration: none;" target="_blank">
-     <div class="article" id="60">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/60.png"/>
-      <h3 class="title">
-       Visit A Random Website
-      </h3>
-      <p class="summary">
-       Built by Noah Baron it does exactly what it says and has a cool UI. After a couple runs do turn on instant mode to save on some wait time.
-      </p>
-     </div>
-    </a>
-    <a href="https://www.youtube.com/watch?v=gbtlL8mTqJI&amp;ab_channel=JanTecEngineering" style="text-decoration: none;" target="_blank">
-     <div class="article" id="71">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/71.jpg"/>
-      <h3 class="title">
-       How to 3D print warp-free with Peel-off Layers. -JanTec Engineering
-      </h3>
-      <p class="summary">
-       JanTec Engineering introduces and demonstrates how different materials can be used as interface layers to reduce warping and improve bed adhesion for filaments such as PP, ABS, ASA and TPU. There are some good tips and discussion in the comments.
-      </p>
-     </div>
-    </a>
-    <a href="https://www.youtube.com/watch?v=yjD2n_e9E3w" style="text-decoration: none;" target="_blank">
-     <div class="article" id="56">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/56.png"/>
-      <h3 class="title">
-       GPT2 (predecessor of ChatGPT) built in Excel
-      </h3>
-      <p class="summary">
-       "Spreadsheets are all you need" demonstrates a GPT-2 model entirely built in Excel. Without being a developer, you can explore how transformer models like GPT-2 work without dealing with abstractions created by layers of code. The demo removes these layers, allowing you to see each step of the model’s workings directly. Do download and play with it!
-      </p>
-     </div>
-    </a>
-    <a href="https://xyzdims.com/tag/hideo-kodama/" style="text-decoration: none;" target="_blank">
-     <div class="article" id="58">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/58.jpg"/>
-      <h3 class="title">
-       Hideo Kodama’s significance in the history of 3D printing
-      </h3>
-      <p class="summary">
-       Dr. Hideo Kodama pioneered 3D printing in 1981 by creating one of the first rapid prototyping machines using UV-curable resin. But nowadays Chuck Hull is often credited as the inventor for patenting stereolithography and developing the .stl format in 1986. The test print he used was a house, might be cool turn it into a benchmark model. The article explores the history of 3D printing chronologically.
-      </p>
-     </div>
-    </a>
-    <a href="https://sander.ai/2024/09/02/spectral-autoregression.html" style="text-decoration: none;" target="_blank">
-     <div class="article" id="67">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/67.png"/>
-      <h3 class="title">
-       Diffusion is spectral autoregression
-      </h3>
-      <p class="summary">
-       This writeup by Sander Dieleman investigates the frequency spectrum of data used to train diffusion models, uncovering interesting insights into why certain types of data result in higher-quality output.
-      </p>
-     </div>
-    </a>
-    <a href="https://makeityourself.org/" style="text-decoration: none;" target="_blank">
-     <div class="article" id="70">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/70.png"/>
-      <h3 class="title">
-       Make It Yourself
-      </h3>
-      <p class="summary">
-       "Make It Yourself" is a digital book written by  N-O-D-E  showcasing over 1,000 DIY projects from creative individuals worldwide. Each project links to detailed instructions and is categorized by their manufacturing methods.
-      </p>
-     </div>
-    </a>
-    <a href="https://build-its-inprogress.blogspot.com/2024/10/go-kart-revival-part-1-drive-units.html" style="text-decoration: none;" target="_blank">
-     <div class="article" id="69">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/69.JPG"/>
-      <h3 class="title">
-       Go Kart Drive Unit Revival
-      </h3>
-      <p class="summary">
-       Ben Katz revamps the drive system of an old go-kart project of his. For the casing he designs a custom monolithic 3d printed Aluminum water-jacket shell.  A very thorough writeup with great ideas and cool machining shots.
-      </p>
-     </div>
-    </a>
-    <a href="https://walzr.com/bop-spotter" style="text-decoration: none;" target="_blank">
-     <div class="article" id="62">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/62.png"/>
-      <h3 class="title">
-       Bop Spotter
-      </h3>
-      <p class="summary">
-       Riley Walz has set up a box with an old Android phone in San Francisco that uses Shazam to detect music 24/7. With his culture surveillance initiative he aims to capture vibes and music trends in real-time instead of gunshots.
-      </p>
-     </div>
-    </a>
-    <a href="https://youtu.be/3xBnIZkclI8?si=AVFqr7PZOMnpHswQ&amp;t=126" style="text-decoration: none;" target="_blank">
-     <div class="article" id="61">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/61.jpg"/>
-      <h3 class="title">
-       Beyond Manual Dexterity: Designing a Multi-fingered Robotic Hand for Grasping and Crawling by Xiao GAO
-      </h3>
-      <p class="summary">
-       Researchers from EPFL demonstrate a robotic arm with a custom hand for grasping and accessing objects on a surface. They designed a hand that can grasp on both sides and train it with genetic algorithms in MuJoCo Sim. The hand can detach automatically, crawl to reach objects, pick it up, crawl back and re-attach.
-      </p>
-     </div>
-    </a>
-    <a href="https://www.youtube.com/watch?v=B1QqAZeEfes" style="text-decoration: none;" target="_blank">
-     <div class="article" id="43">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/43.jpg"/>
-      <h3 class="title">
-       How labels multiply your knowledgebase, cash, time, on LOW effort. -David Malawey
-      </h3>
-      <p class="summary">
-       David Malawey highlights the benefits of labels and explains how you can make your tools and inventory more accessible by adding QR codes and indexing.
-      </p>
-     </div>
-    </a>
-    <a href="https://youtu.be/Fy2_CUBz40A?si=lg5p_oAZ90mTPDBx&amp;t=1416" style="text-decoration: none;" target="_blank">
-     <div class="article" id="65">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/65.png"/>
-      <h3 class="title">
-       Printing solder to create circuit boards
-      </h3>
-      <p class="summary">
-       Somehow a “side-project” in a car build series, this is a 2D gantry that melts solder onto a panel of FR4 to create circuit traces. Seems to be built using a standard 3D printer nozzle and extruder. One downside is that spray glue needs to be applied to the board for the traces to stick.
-      </p>
-     </div>
-    </a>
-    <a href="https://www.youtube.com/watch?v=l2hg5VMWGf0" style="text-decoration: none;" target="_blank">
-     <div class="article" id="40">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/40.png"/>
-      <h3 class="title">
-       ErgO Smart ring keyboard+mouse - Sophia Dai
-      </h3>
-      <p class="summary">
-       Sophia Dai’s ErgO is a smart, Bluetooth-enabled ring replacing keyboard and mouse in a very small form-factor. It features an IMU, trackball, buttons, and device switching, ideal for everyday tasks and active use. She shares her code and has building instructions on Hackaday.
-      </p>
-     </div>
-    </a>
-    <a href="https://www.kickstarter.com/projects/daistes/swapmod-automated-multi-plate-system-for-a1-mini?ref=85v6ph" style="text-decoration: none;" target="_blank">
-     <div class="article" id="63">
-      <video autoplay="autoplay" class="thumbnail" loop="loop" muted="muted">
-       <source src="https://hatsnewsletter.github.io/image/cover_images/63.mp4" type="video/mp4"/>
-       Your browser does not support the video tag.
-      </video>
-      <h3 class="title">
-       Bambu Lab A1 Mini automated with automatic plate changer kit
-      </h3>
-      <p class="summary">
-       Andre Bar’s DIY kit Swapmod enables a Bambu Lab A1 to become almost fully automated. The printer can swap its own build plate to be able to keep printing indefinitely.
-      </p>
-     </div>
-    </a>
-    <a href="https://www.youtube.com/watch?v=RhV6WD2gScc" style="text-decoration: none;" target="_blank">
-     <div class="article" id="59">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/59.png"/>
-      <h3 class="title">
-       How To Reactivate Faded Receipts
-      </h3>
-      <p class="summary">
-       A one-time trick to make a faded-out thermal printed receipt visible again.
-      </p>
-     </div>
-    </a>
-    <a href="https://www.youtube.com/watch?v=0SRVJaOg9Co" style="text-decoration: none;" target="_blank">
-     <div class="article" id="41">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/41.png"/>
-      <h3 class="title">
-       Figure 02 - a practical humanoid robot
-      </h3>
-      <p class="summary">
-       Figure introduces Figure 02, an autonomous humanoid robot featuring a 5-hour runtime and self-correcting behavior to adapt to changes in the task.
-      </p>
-     </div>
-    </a>
-    <a href="https://www.youtube.com/watch?v=8VbOhdxjPyI" style="text-decoration: none;" target="_blank">
-     <div class="article" id="39">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/39.png"/>
-      <h3 class="title">
-       The Czinger 21C Chassis
-      </h3>
-      <p class="summary">
-       Czinger Vehicles’ Bio-Logic chassis is designed by optimizing multiple variables together: stiffness, weight, fatigue, crash safety, and manufacturing using AI-driven software. It is additively manufactured with their own patented alloys.
-      </p>
-     </div>
-    </a>
-    <a href="https://aschmelyun.com/blog/getting-my-daily-news-from-a-dot-matrix-printer/" style="text-decoration: none;" target="_blank">
-     <div class="article" id="37">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/37.jpg"/>
-      <h3 class="title">
-       Getting my news from a dot matrix printer
-      </h3>
-      <p class="summary">
-       Andrew Schmelyun builds a custom "front page" using a dot matrix printer (and a Raspberry Pi) to get his daily news, weather and stocks info.
-      </p>
-     </div>
-    </a>
-    <a href="https://www.youtube.com/watch?v=sjluXwozFPE" style="text-decoration: none;" target="_blank">
-     <div class="article" id="35">
-      <img alt="Thumbnail" class="thumbnail" src="https://hatsnewsletter.github.io/image/cover_images/35.png"/>
-      <h3 class="title">
-       Can we print a sub 1minute Benchy?
-      </h3>
-      <p class="summary">
-       Roetz 4.0 explores whether a sub 1 minute benchy is possible with a machine that has been converted from an old  CMM, air bearings and custom designed parts using Klipper Firmware.
-      </p>
-     </div>
-    </a>
    </div>
+
+    <!-- Pagination Controls -->
+    <div class="pagination">
+        <button id="prev-page">Prev</button>
+        <span id="page-info">Page 1</span>
+        <button id="next-page">Next</button>
+    </div>
+
+    <footer class="footer">
+
    <footer class="footer">
     <a class="newsletter-button" href="http://eepurl.com/iOYbAY">
      <img alt="Mail Icon" src="image\icon\mail_icon.svg"/>
@@ -916,6 +745,10 @@
      </div>
     </div>
    </footer>
+
+   
+    
+
   </body>
  </html>
 </html>
