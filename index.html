@@ -92,6 +92,12 @@
 			 img.disablePictureInPicture="true";
 			 img.disableRemotePlayback="true";
 			 img.style.pointerEvents="none";
+			 img.preload="none";
+			 img.defaultMuted="true";
+			 img.setAttribute("webkit-playsinline", "true");
+			 img.setAttribute("x5-playsinline", "true");
+			 img.setAttribute("x5-video-player-type", "h5");
+			 img.setAttribute("x5-video-player-fullscreen", "false");
 			 var src=document.createElement("source");
 			 src.src=data.vidurl;
 			 src.type="video/mp4";
