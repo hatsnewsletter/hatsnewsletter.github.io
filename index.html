@@ -15,7 +15,7 @@
    <meta content="article" property="og:type"/>
    <meta content="https://hatsnewsletter.github.io/" property="og:url"/>
    <meta content="https://hatsnewsletter.github.io/image\icon\opengraphprotocol_img.png" property="og:image"/>
-   <meta content="We’re three friends sharing weekly discoveries in robotics, electronics, design, and more. Join us for an up to date digest of the web and tell a friend who’d enjoy it too!" property="og:description"/>
+   <meta content="We're three friends sharing weekly discoveries in robotics, electronics, design, and more. Join us for an up to date digest of the web and tell a friend who'd enjoy it too!" property="og:description"/>
    <!-- Optional Open Graph Metadata -->
    <meta content="Hats Newsletter" property="og:site_name"/>
    <meta content="en_US" property="og:locale"/>
@@ -83,21 +83,31 @@
 			 img.src=data.imgurl;
 		 } else {
 			 var img=document.createElement("video");
-			 img.autoplay="autoplay";
 			 img.classList.add("thumbnail");
-			 img.loop="loop";
-			 img.muted="muted";
-			 img.playsinline="true";
-			 img.controls="false";
-			 img.disablePictureInPicture="true";
-			 img.disableRemotePlayback="true";
-			 img.style.pointerEvents="none";
-			 img.preload="none";
-			 img.defaultMuted="true";
-			 img.setAttribute("webkit-playsinline", "true");
-			 img.setAttribute("x5-playsinline", "true");
+			 // Inline playback attributes for iOS/Safari and others
+			 img.setAttribute("playsinline", "");
+			 img.setAttribute("webkit-playsinline", "");
+			 img.setAttribute("x5-playsinline", "");
 			 img.setAttribute("x5-video-player-type", "h5");
 			 img.setAttribute("x5-video-player-fullscreen", "false");
+			 // Autoplay, loop, muted
+			 img.autoplay = true;
+			 img.setAttribute("autoplay", "");
+			 img.loop = true;
+			 img.setAttribute("loop", "");
+			 img.muted = true;
+			 img.setAttribute("muted", "");
+			 img.defaultMuted = true;
+			 img.preload = "none";
+			 // No controls, no interaction
+			 img.controls = false;
+			 img.setAttribute("controls", "false");
+			 img.disablePictureInPicture = true;
+			 img.setAttribute("disablePictureInPicture", "true");
+			 img.disableRemotePlayback = true;
+			 img.setAttribute("disableRemotePlayback", "true");
+			 img.style.pointerEvents = "none";
+			 // Source
 			 var src=document.createElement("source");
 			 src.src=data.vidurl;
 			 src.type="video/mp4";
