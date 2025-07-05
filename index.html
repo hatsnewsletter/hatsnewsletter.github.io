@@ -96,7 +96,11 @@
 			 img.setAttribute("x5-video-player-fullscreen", "false");
 			 img.setAttribute("disablepictureinpicture", "");
 			 img.setAttribute("controlslist", "nodownload nofullscreen noremoteplayback");
-			 // No controls, no interaction
+			 // Set JavaScript properties as well (--for Android)
+			 img.autoplay = true;
+			 img.loop = true;
+			 img.muted = true;
+			 img.playsInline = true;
 			 img.controls = false;
 			 img.style.pointerEvents = "none";
 			 // Source
@@ -866,19 +870,53 @@
 		 // register the handler 
 		 document.addEventListener('keyup', doc_keyUp, false);
 		 
+		 // User interaction fallback for Android autoplay
+		 function tryPlayAllVideos() {
+			 const videos = document.querySelectorAll('.thumbnail');
+			 videos.forEach(video => {
+				 if (video.tagName === 'VIDEO' && video.paused) {
+					 video.play().catch(e => console.log('User interaction play failed:', e));
+				 }
+			 });
+		 }
+		 
+		 // Try to play videos on any user interaction
+		 document.addEventListener('touchstart', tryPlayAllVideos, { once: true });
+		 document.addEventListener('click', tryPlayAllVideos, { once: true });
+		 document.addEventListener('scroll', tryPlayAllVideos, { once: true });
+		 
          displayPage(currentPage);
          
-         // Fallback for autoplay blocking (rare with muted videos)
+         // Enhanced autoplay fallback for Android and other mobile browsers
          const videos = document.querySelectorAll('.thumbnail');
          videos.forEach(video => {
              if (video.tagName === 'VIDEO') {
+                 // Ensure all properties are set
+                 video.muted = true;
+                 video.playsInline = true;
+                 video.autoplay = true;
+                 video.loop = true;
+                 
+                 // Try to play immediately
                  const attempt = video.play?.();
                  if (attempt?.catch) {
-                     attempt.catch(() => {
-                         // Browser blocked autoplay - this should be very rare with muted videos
-                         console.log('Autoplay blocked for video:', video);
+                     attempt.catch((error) => {
+                         console.log('Autoplay failed, retrying:', error);
+                         // Retry after a short delay (common Android workaround)
+                         setTimeout(() => {
+                             video.play().catch(e => console.log('Retry failed:', e));
+                         }, 100);
                      });
                  }
+                 
+                 // Additional Android-specific handling
+                 video.addEventListener('loadedmetadata', () => {
+                     video.play().catch(e => console.log('Loadedmetadata play failed:', e));
+                 });
+                 
+                 video.addEventListener('canplay', () => {
+                     video.play().catch(e => console.log('Canplay play failed:', e));
+                 });
              }
          });
      });
